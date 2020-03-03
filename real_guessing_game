@@ -1,0 +1,25 @@
+while(True):
+    import random
+
+    print("My program thinks of a number and the player guesses the number")
+
+    rand = int(input("Type in the maximum number the random integer can be"))
+
+    guess = 0
+
+    number = random.randrange(1, rand)
+
+    while (guess != number):
+        guess = input("guess your number, if want to quit press q")
+        #if guess = q
+        #break (quite program)
+        #covert guess to int
+        if guess == "q":
+            break
+        guess = int(guess)
+        if (guess < number):
+            print("Number is greater")
+        elif guess > number:
+            print("Number is lower")
+    
+    print("Guess is correct") 
