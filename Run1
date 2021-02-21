@@ -1,0 +1,100 @@
+#!/usr/bin/env pybricks-micropython
+from pybricks.hubs import EV3Brick
+from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
+                                 InfraredSensor, UltrasonicSensor, GyroSensor)
+from pybricks.parameters import Port, Stop, Direction, Button, Color
+from pybricks.tools import wait, StopWatch, DataLog
+from pybricks.robotics import DriveBase
+from pybricks.media.ev3dev import SoundFile, ImageFile
+
+
+# This program requires LEGO EV3 MicroPython v2.0 or higher.
+# Click "Open user guide" on the EV3 extension tab for more information.
+
+
+# Create your objects here.
+ev3 = EV3Brick()
+ev3.speaker.beep()
+
+left_motor = Motor(Port.A)
+right_motor = Motor(Port.D)
+medium_left = Motor(Port.B)
+medium_right = Motor(Port.C)
+gs = GyroSensor (Port.S3)
+#csLeft = ColorSensor(Port.S1)
+csMiddle = ColorSensor(Port.S2)
+#csRight = ColorSensor(Port.S4)
+robot = DriveBase(left_motor, right_motor, axle_track = 104, wheel_diameter = 55.5)
+
+def turnLeft(turn_angle):
+    left_motor.hold()
+    angle = gs.angle()
+    gs.reset_angle(0)
+    while(angle < turn_angle): 
+        angle = gs.angle()        
+        angle = abs(angle)
+        print(angle)
+        right_motor.run(300)
+
+    right_motor.hold()
+
+def turnRight(turn_angle):
+    right_motor.hold()
+    angle = gs.angle()
+    gs.reset_angle(0)
+    while(angle < turn_angle): 
+        angle = gs.angle()        
+        angle = abs(angle)
+        print(angle)
+        left_motor.run(300)
+
+    left_motor.hold()
+
+def bench_push():
+    robot.straight(330)
+    robot.turn(-100)
+    robot.straight(330)
+    robot.turn(-100)
+    robot.straight(260)
+    robot.stop()
+
+
+def going_to_lift_bench():
+    robot.straight(-300)
+    robot.turn(-110)
+    robot.straight(300)
+    robot.turn(100)
+    robot.straight(455)
+    robot.turn(165)
+    robot.straight(225)
+    robot.stop()
+
+def lifting_bench_dropping_cubes():
+    medium_left.run_time(-125, 4750)
+    robot.straight(127)
+    medium_left.run_time(400, 3250)
+
+    robot.straight(-260)
+    robot.turn(220)
+    robot.stop()
+    robot.settings(300, 600, 0, 0)
+    robot.straight(-175)
+    robot.straight(50)
+    robot.stop()
+
+def going_to_basketball():
+    #right_motor.run_angle(4000, 270, then=Stop.HOLD)
+    turnLeft(140)
+    robot.stop()
+    robot.straight(360)
+    robot.stop()
+    #left_motor.run_angle(4000, -175, then=Stop.HOLD)
+    turnLeft(90)
+    robot.straight(160)
+    robot.stop()
+    medium_right.run_time(100, 13000)
+
+bench_push()
+going_to_lift_bench()
+lifting_bench_dropping_cubes()
+going_to_basketball()
