@@ -88,72 +88,78 @@ def StopAtBlackLineRight():
 #Small Tire Flip
 robot.straight(1000)
 StopAtWhiteLine()
-robot.straight(150)
+robot.straight(175)
 #robot turns toward the wall and reveres: 
 robot.turn(-120)
 robot.straight(-180)
 #goes off the wall and turns to the wheel
-robot.straight(150)
-robot.turn(-50)
+robot.straight(200)
+robot.turn(-65)
 robot.stop()
 #Goes foreward to flip the wheel
-medium_left.run_time(-200, 4600)
+medium_left.run_time(-200, 5000)
 robot.straight(80)
-medium_left.run_time(150, 4750)
+medium_left.run_time(150, 5000)
 medium_left.stop()
 #Large Tire Flip
 #StopAtWhiteLineRightMotorBackwards()
-robot.turn(20)
-medium_left.run_time(-400, 4600)
+robot.turn(30)
+robot.straight(-50)
+medium_left.run_time(-200, 4000)
 robot.straight(110)
-medium_left.run_time(1200, 4700)
+medium_left.run_time(150, 6500)
 
 #back after both tire flip
-robot.straight(-400)
+robot.turn(20)
+robot.straight(-550)
 robot.straight(150)
-robot.turn(-130)
-robot.straight(400)
+robot.turn(-125)
+robot.straight(300)
 robot.stop()
 StopAtWhiteLineRight()
 
 gs.reset_angle(0)
-
+#parrallel park
 while(gs.angle() > -35):
     right_motor.run(300)
-    left_motor.run(200)
+    left_motor.run(215)
     print(gs.angle())
 
 robot.stop()
 
 
 while(gs.angle() < 0):
-    right_motor.run(200)
+    right_motor.run(215)
     left_motor.run(300)
     print(gs.angle())
 
 robot.stop()
 
-
-robot.straight(-390)
-
-robot.straight(100)
+#pushes step counter
+robot.straight(-500)
+robot.stop()
+right_motor.run_time(300, 4000)
+robot.stop()
+robot.straight(-200)
 robot.stop()
 gs.reset_angle(0)
-while(gs.angle() < 180):
-    left_motor.run(150)
-    right_motor.run(20)
-    print(gs.angle())
-
+while (gs.angle() > -70):
+    right_motor.run(300)
+    left_motor.run(-300)
 robot.stop()
+robot.straight(130)
+StopAtWhiteLine
+robot.straight(-70)
 robot.stop()
 gs.reset_angle(0)
-while(gs.angle() > -90):
-    right_motor.run(150)
-    left_motor.run(20)
-    print(gs.angle())
-
+while (gs.angle() > -75):
+    right_motor.run(300)
+    left_motor.run(-300)
 robot.stop()
 
-robot.straight(170)
+
+
+
+robot.straight(400)
 robot.stop()
 medium_right.run_time(4000, 2000)
